@@ -206,7 +206,6 @@ const GAME_STATE = {
 };
 
 function Game({ _contractAddress, wageAmount, name }) {
-  // contractAddress = _contractAddress;
   const [state, setState] = useState(null);
   const [contract, setContract, contractRef] = useState(null);
   const [canWithdraw, setCanWithdraw] = useState(null);
@@ -237,34 +236,41 @@ function Game({ _contractAddress, wageAmount, name }) {
   const startTheGame = async () => {
     setLoading(true);
     // console.log("Going to start the game");
-    let tx = await contract.start_new_game();
-    await tx.wait();
-    setGameState();
+    try {
+      let tx = await contract.start_new_game();
+      await tx.wait();
+      setGameState();
+    } catch (err) {}
     setLoading(false);
+
     // console.log("Game started");
   };
   const withdrawFromGame = async () => {
     setLoading(true);
 
-    let tx = await contract.withdrawFromGame();
-    await tx.wait();
-    setGameState();
-    shouldWithdraw();
+    try {
+      let tx = await contract.withdrawFromGame();
+      await tx.wait();
+      setGameState();
+      shouldWithdraw();
+    } catch (err) {}
     setLoading(false);
   };
   const enterTheGame = async () => {
     setLoading(true);
 
     console.log("Entering in the game:", (wageAmount * 1e18).toString());
-    let tx = await contract.enter({
-      value: (wageAmount * 1e18).toString(),
-      gasLimit: 2100000,
-      gasPrice: 8000000000,
-    });
-    await tx.wait();
-    setGameState();
-    shouldWithdraw();
-    console.log("Entered in game");
+    try {
+      let tx = await contract.enter({
+        value: (wageAmount * 1e18).toString(),
+        gasLimit: 2100000,
+        gasPrice: 8000000000,
+      });
+      await tx.wait();
+      setGameState();
+      shouldWithdraw();
+      console.log("Entered in game");
+    } catch (err) {}
     setLoading(false);
   };
   const initProvider = async () => {
@@ -299,8 +305,9 @@ function Game({ _contractAddress, wageAmount, name }) {
   };
 
   useEffect(() => {
-    if (!contract) initProvider();
-  }, []);
+    initProvider();
+    console.log("Should call now");
+  }, [_contractAddress]);
   return (
     <Grid
       container
