@@ -295,6 +295,8 @@ function Game({ _contractAddress, wageAmount, name }) {
           } else if (loser === signerAddress) {
             setOpenLostSnackbar(true);
           }
+          setGameState();
+          setLoading(false);
         });
       } else {
         console.log("Ethereum not found");
