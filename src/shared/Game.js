@@ -378,7 +378,7 @@ function Game({ _contractAddress, wageAmount, name }) {
           <MediaCard
             title="We're calculating winner"
             image={game_wait}
-            details={`Please wait for the result. Winner is being determined`}
+            details={`Please wait for the result. Winner is being determined. It may take a while`}
           />
           // <>
           //   <Typography sx={{ mt: 2.5, fontSize: 16 }} color="text.secondary">

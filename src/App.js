@@ -85,7 +85,7 @@ function App() {
               path="/game1"
               element={
                 <Game
-                  _contractAddress="0xeD6cD43a5caef819b0871c0D454c329bf9a3bab0"
+                  _contractAddress="0xBBA94eb4aC309FBD02fDB8532a9A761a77D20085"
                   wageAmount={0.01}
                   name="Game1"
                 />
@@ -96,7 +96,7 @@ function App() {
               path="/game2"
               element={
                 <Game
-                  _contractAddress="0xd82D750c9856249850E259594A906626607D71c8"
+                  _contractAddress="0xC615Ab8420D2cE069b5dFB44d7923b507F7076E6"
                   wageAmount={0.03}
                   name="Game2"
                 />
@@ -107,7 +107,7 @@ function App() {
               path="/"
               element={
                 <Game
-                  _contractAddress="0xeD6cD43a5caef819b0871c0D454c329bf9a3bab0"
+                  _contractAddress="0xBBA94eb4aC309FBD02fDB8532a9A761a77D20085"
                   wageAmount={0.01}
                   name="Game1"
                 />
