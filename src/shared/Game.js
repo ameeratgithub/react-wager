@@ -16,7 +16,7 @@ import game_start from "../game_start.jpg";
 import game_enter from "../game_enter.jpg";
 import game_wait from "../game_wait.png";
 import game_withdraw from "../game_withdraw.jpeg";
-let contractAddress;
+// let contractAddress;
 const abi = [
   {
     inputs: [
@@ -206,7 +206,7 @@ const GAME_STATE = {
 };
 
 function Game({ _contractAddress, wageAmount, name }) {
-  contractAddress = _contractAddress;
+  // contractAddress = _contractAddress;
   const [state, setState] = useState(null);
   const [contract, setContract, contractRef] = useState(null);
   const [canWithdraw, setCanWithdraw] = useState(null);
@@ -275,7 +275,7 @@ function Game({ _contractAddress, wageAmount, name }) {
         const provider = new ethers.providers.Web3Provider(ethereum);
 
         const signer = provider.getSigner();
-        const _contract = new ethers.Contract(contractAddress, abi, signer);
+        const _contract = new ethers.Contract(_contractAddress, abi, signer);
         const signerAddress = await signer.getAddress();
         if (!contract) setContract(_contract);
         setGameState();
