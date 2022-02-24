@@ -1,12 +1,7 @@
 import {
   Alert,
-  Button,
-  Card,
-  CardContent,
   Grid,
-  Snackbar,
-  TextField,
-  Typography,
+  Snackbar
 } from "@mui/material";
 import { ethers } from "ethers";
 import { useEffect } from "react";
@@ -16,7 +11,6 @@ import game_start from "../game_start.jpg";
 import game_enter from "../game_enter.jpg";
 import game_wait from "../game_wait.png";
 import game_withdraw from "../game_withdraw.jpeg";
-// let contractAddress;
 const abi = [
   {
     inputs: [
@@ -198,7 +192,6 @@ const abi = [
     type: "function",
   },
 ];
-// let signer;
 const GAME_STATE = {
   CLOSED: 0,
   OPEN: 1,
@@ -207,15 +200,15 @@ const GAME_STATE = {
 
 function Game({ _contractAddress, wageAmount, name }) {
   const [state, setState] = useState(null);
+ 
   const [contract, setContract, contractRef] = useState(null);
+ 
   const [canWithdraw, setCanWithdraw] = useState(null);
+ 
   const [loading, setLoading] = useState(false);
-  // const [heading, setHeading] = useState(null);
-  // const [text, setText] = useState(null);
-  // const [image, setImage] = useState(null);
-
-  // const [won, setWon] = useState(false);
+ 
   const [openWonSnackbar, setOpenWonSnackbar] = useState(false);
+ 
   const [openLostSnackbar, setOpenLostSnackbar] = useState(false);
 
   const setGameState = async () => {
@@ -228,14 +221,12 @@ function Game({ _contractAddress, wageAmount, name }) {
   const shouldWithdraw = async () => {
     const _contract = contract || contractRef.current;
     const _canWithdraw = await _contract.canWithdraw();
-    // const player = await _contract.players();
-    // console.log(_canWithdraw, player);
     setCanWithdraw(_canWithdraw);
   };
 
   const startTheGame = async () => {
     setLoading(true);
-    // console.log("Going to start the game");
+   
     try {
       let tx = await contract.start_new_game();
       await tx.wait();
@@ -243,7 +234,6 @@ function Game({ _contractAddress, wageAmount, name }) {
     } catch (err) {}
     setLoading(false);
 
-    // console.log("Game started");
   };
   const withdrawFromGame = async () => {
     setLoading(true);
@@ -320,22 +310,7 @@ function Game({ _contractAddress, wageAmount, name }) {
       style={{ minHeight: "80vh" }}
     >
       <Grid item xs={8}>
-        {/* <Card sx={{ minWidth: 375 }}> */}
-        {/* <CardContent> */}
-        {/* <Typography
-              sx={{ fontSize: 20 }}
-              color="text.secondary"
-              gutterBottom
-            >
-              Welcome to {name}
-            </Typography> */}
-        {/* <TextField
-              id="standard-basic"
-              label="Enter Amount"
-              variant="standard"
-              sx={{ minWidth: 375 }}
-            /> */}
-
+     
         {state === GAME_STATE.CLOSED && (
           <MediaCard
             title={"Welcome to " + name}
@@ -347,22 +322,6 @@ function Game({ _contractAddress, wageAmount, name }) {
             actionText="Start The Game"
             loading={loading}
           />
-          // <>
-          //   <Typography
-          //     sx={{ mt: 1.5, fontSize: 14 }}
-          //     color="text.secondary"
-          //   >
-          //     You're first in the game. Please start the game to allow
-          //     players to enter
-          //   </Typography>
-          //   <Button
-          //     variant="contained"
-          //     sx={{ mt: 3.5 }}
-          //     onClick={startTheGame}
-          //   >
-          //     Start The Game
-          //   </Button>
-          // </>
         )}
         {state === GAME_STATE.OPEN && !canWithdraw && (
           <MediaCard
@@ -373,15 +332,7 @@ function Game({ _contractAddress, wageAmount, name }) {
             actionText="Enter In Game"
             loading={loading}
           />
-          // <>
-          //   <Typography sx={{ mt: 2.5, fontSize: 14 }} color="text.secondary">
-          //     You're allowed to enter in the game. Entrance fee is {wageAmount}{" "}
-          //     ETH!
-          // //   </Typography>
-          //   <Button variant="contained" sx={{ mt: 3.5 }} onClick={enterTheGame}>
-          //     Enter In Game
-          //   </Button>
-          // </>
+         
         )}
         {state === GAME_STATE.CALCULATING_WINNER && (
           <MediaCard
@@ -389,18 +340,7 @@ function Game({ _contractAddress, wageAmount, name }) {
             image={game_wait}
             details={`Please wait for the result. Winner is being determined. It may take a while`}
           />
-          // <>
-          //   <Typography sx={{ mt: 2.5, fontSize: 16 }} color="text.secondary">
-          //     Please wait for the result. Winner is being determined
-          //   </Typography>
-          //   <Button
-          //         variant="contained"
-          //         sx={{ mt: 3.5 }}
-          //         onClick={enterTheGame}
-          //       >
-          //         Enter In Game
-          //       </Button>
-          // </>
+         
         )}
         {canWithdraw && (
           <MediaCard
@@ -412,30 +352,9 @@ function Game({ _contractAddress, wageAmount, name }) {
             actionText="Withdraw From Game"
             loading={loading}
           />
-          // <>
-          //   <Typography sx={{ mt: 1.5, fontSize: 14 }} color="text.secondary">
-          // You're only player in the game. Please wait for other player. You
-          // can also withdraw your amount by click button below
-          //   </Typography>
-          //   <Button
-          //     variant="contained"
-          //     sx={{ mt: 3.5 }}
-          //     onClick={withdrawFromGame}
-          //   >
-          //     Withdraw From Game
-          //   </Button>
-          // </>
+
         )}
-        {/* <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
-            </Typography> */}
-        {/* </CardContent> */}
-        {/* <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
-        {/* </Card> */}
+
       </Grid>
       <Snackbar open={openWonSnackbar} autoHideDuration={6000}>
         <Alert severity="success" sx={{ width: "100%" }}>

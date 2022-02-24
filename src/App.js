@@ -6,7 +6,6 @@ import Game from "./shared/Game";
 import Nav from "./Nav";
 import { Grid, Typography } from "@mui/material";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-// import Web3 from "web3";
 
 function App() {
   const checkWalletIsConnected = async () => {
@@ -67,9 +66,6 @@ function App() {
     );
   };
 
-  const connectedButton = () => {
-    return <Button variant="contained">Hi! I'm connected</Button>;
-  };
 
   useEffect(() => {
     checkWalletIsConnected();
